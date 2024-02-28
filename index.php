@@ -3,24 +3,25 @@
     require_once __DIR__ . "./global.php";
 
     $form_sent = !empty($_GET);
-
+    function generatePassword($password_length) {
+        $characters_number="abcdefghijlmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ0123456789_?*+&%!#@";
+        $length_characters_number = strlen($characters_number);
+        $random_password = "";
+        $i = 0;
+        while ($i < $password_length) {
+            $random_character = rand(0, $length_characters_number - 1);
+            $random_password .= $characters_number[$random_character];
+            $i++;
+        }
+        return $random_password;
+    }
     if ($form_sent) {
         $password_length = $_GET['pass-length'] ?? false;
         if ($password_length) {
-            function generatePassword($password_length) {
-                $characters_number="abcdefghijlmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ0123456789_?*+&%!#@";
-                $length_characters_number = strlen($characters_number);
-                $random_password = "";
-                $i = 0;
-                while ($i < $password_length) {
-                    $random_character = rand(0, $length_characters_number - 1);
-                    $random_password .= $characters_number[$random_character];
-                    $i++;
-                }
-                return $random_password;
-            }
+            $password = generatePassword($password_length);
         }
     } else {
+        $password = "";
         $password_length = "";
     }
 ?>
@@ -60,7 +61,7 @@
                     </div>
                     <div class="col-4">
                         <input class="form-control" type="text" name="pass-generated" id="pass-generated"
-                            value="<?= generatePassword($password_length) ?>">
+                            value="<?= $password ?>">
                     </div>
 
                 </div>
