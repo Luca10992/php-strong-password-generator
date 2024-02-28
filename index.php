@@ -1,10 +1,29 @@
 <?php
 
-require_once __DIR__ . "/function.php"
+    require_once __DIR__ . "./global.php";
 
+    $form_sent = !empty($_GET);
 
+    if ($form_sent) {
+        $password_length = $_GET['pass-length'] ?? false;
+        if ($password_length) {
+            function generatePassword($password_length) {
+                $characters_number="abcdefghijlmnopqrstuvwxyzABCDEFGHIJLMNOPQRSTUVWXYZ0123456789_?*+&%!#@";
+                $length_characters_number = strlen($characters_number);
+                $random_password = "";
+                $i = 0;
+                while ($i < $password_length) {
+                    $random_character = rand(0, $length_characters_number - 1);
+                    $random_password .= $characters_number[$random_character];
+                    $i++;
+                }
+                return $random_password;
+            }
+        }
+    } else {
+        $password_length = "";
+    }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -35,6 +54,15 @@ require_once __DIR__ . "/function.php"
                     <div class="col-4">
                         <input class="form-control" type="number" name="pass-length" id="pass-length" min="8" max="15">
                     </div>
+                    <input type="submit" value="Genera">
+                    <div class="col-8 fs-5">
+                        <label class="form-label" for="pass-generated">Password generata: </label>
+                    </div>
+                    <div class="col-4">
+                        <input class="form-control" type="text" name="pass-generated" id="pass-generated"
+                            value="<?= generatePassword($password_length) ?>">
+                    </div>
+
                 </div>
             </form>
         </div>
