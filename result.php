@@ -1,4 +1,8 @@
-<?php require_once __DIR__ . "./function.php"; ?>
+<?php 
+
+    require_once __DIR__ . "./function.php";
+    session_start();    
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,19 +25,15 @@
     </header>
     <main>
         <div class="container w-50">
-            <form method="GET">
-                <div class="row">
-                    <div class="col-8 fs-5">
-                        <label class="form-label" for="pass-length">Lunghezza Password:</label>
-                    </div>
-                    <div class="col-4">
-                        <input class="form-control" type="number" name="pass-length" id="pass-length" min="8" max="20">
-                    </div>
-                    <div class="col-12 mt-2 d-flex justify-content-end">
-                        <input class="btn btn-success w-25" type="submit" value="Genera">
-                    </div>
+            <div class="row">
+                <div class="col-8 fs-5">
+                    <label class="form-label" for="pass-generated">Password generata: </label>
                 </div>
-            </form>
+                <div class="col-4">
+                    <input class="form-control" type="text" name="pass-generated" id="pass-generated"
+                        value="<?= $_SESSION['result-pass'] ?>">
+                </div>
+            </div>
         </div>
     </main>
 

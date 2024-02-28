@@ -16,6 +16,11 @@
         $password_length = $_GET['pass-length'] ?? false;
         if ($password_length) {
             $password = generatePassword($password_length);
+            
+            header('Location: ./result.php');
+
+            session_start();
+            $_SESSION['result-pass'] = $password;
         }
     } else {
         $password = "";
